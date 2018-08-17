@@ -13,7 +13,7 @@
         <li><a>Current Funds: ${{funds}}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a>End Day</a></li>
+        <li><a>End</a></li>
         <li class="dropdown">
           <a 
           href="#" 
@@ -21,13 +21,15 @@
           data-toggle="dropdown" 
           role="button" 
           aria-haspopup="true" 
-          aria-expanded="false">Save & Load <span class="caret"></span></a>
+          aria-expanded="false">Save & Load <sspan class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Save</a></li>
             <li><a href="#">Load</a></li>
           </ul>
         </li>
       </ul>
+      <input type="text" v-model="f_string" placeholder="Filter Stocks..."/>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -38,10 +40,30 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["funds"])
-  }
+    ...mapGetters(["funds"]),
+    f_string:{
+      get(){
+        return this.$store.state.filter_string;
+      }, 
+      set(value){
+        this.$store.state.filter_string = value;
+      }
+
+    }
+  },
 };
 </script>
 
-<style>
+<style scoped>
+input{
+   width: 100%;
+    padding: 5px;
+    margin: 5px 10px 10px 5px;
+    border-radius: 5px;
+    border: 1px #ccc solid;
+}
+
+input:focus{
+  outline-width: 0px;
+}
 </style>

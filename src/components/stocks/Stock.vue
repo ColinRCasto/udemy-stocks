@@ -3,8 +3,14 @@
     <div class="panel panel-success">
       <div class="panel-heading">
         <h3 class="panel-title">
-          {{stock.name}}
-          <small>(Price: {{stock.price}})</small>
+          {{myStock.name}}
+          <small>
+          ${{myStock.price}} - 
+            <small>
+              {{myStock.shift>0 ? 'UP' : 'DOWN'}}: {{myStock.shift}}
+            </small>
+          </small>
+          <small class="pull-right">(Currently Owned: {{myStock.quantity}})</small>
         </h3>
       </div>
       <div class="panel-body">
@@ -33,23 +39,24 @@ import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 
 export default {
-  props: ["stock"],
+  props: ["stock","index"],
   data() {
     return {
       quantity: 0
     };
   },
   methods: {
-    ...mapActions(["alterFunds"]),
+    ...mapActions(["alterFunds","alterStocks"]),
     buyStock() {
       this.alterFunds(-this.stock.price * this.quantity);
-      const order = {
-        stockId: this.stock.id,
-        stockPrice: this.stock.price,
-        quantity: this.quantity
-      };
+      let pLoad = {
+        id: this.index,
+        quantity: this.quantity,
+        buying: true
+      }
 
-      console.log(order);
+      this.alterStocks(pLoad);
+      console.log(this.$store.state.portfolio.stocks);
       this.quantity = 0;
     }
   },
@@ -64,6 +71,9 @@ export default {
     },
     totalCost() {
       return this.quantity * this.stock.price;
+    },
+    myStock() {
+      return this.$store.getters.filteredStocks[this.index];
     }
   }
 };

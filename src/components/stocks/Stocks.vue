@@ -1,39 +1,14 @@
 <template>
 <div>
-  <app-stock v-for="stock in stocks" :stock="stock"></app-stock>  
+  <app-stock v-for="(stock,index) in filteredStocks" :stock="stock" :index="index" :key="index"></app-stock>  
 </div>
 </template>
 
 <script>
 import Stock from "./Stock";
-
+import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      stocks: [
-        {
-          id: 0,
-          name: "BMW",
-          price: 110
-        },
-        {
-          id: 1,
-          name: "Google",
-          price: 200
-        },
-        {
-          id: 2,
-          name: "Apple",
-          price: 350
-        },
-        {
-          id: 3,
-          name: "Twitter",
-          price: 8
-        }
-      ]
-    };
-  },
+  computed: mapGetters(["filteredStocks"]),
   components: {
     "app-stock": Stock
   }

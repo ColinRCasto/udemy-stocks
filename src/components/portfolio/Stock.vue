@@ -1,10 +1,16 @@
 <template>
   <div class="col-sm-6 col-md-4">
-    <div class="panel panel-success">
+    <div class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">
-          {{stock.name}}
-          <small>(Price: {{stock.price}})</small>
+          {{myStock.name}}
+          <small>
+          ${{myStock.price}} - 
+            <small>
+              {{myStock.shift>0 ? 'UP' : 'DOWN'}}: {{myStock.shift}}
+            </small>
+          </small>
+          <small class="pull-right">(Currently Owned: {{myStock.quantity}})</small>
         </h3>
       </div>
       <div class="panel-body">
@@ -18,8 +24,8 @@
         </div>
         <div class="pull-right">
           <button 
-          class="btn btn-success" 
-          @click="buyStock"
+          class="btn btn-warning" 
+          @click="sellStock"
           :disabled="!canSell"
           >Sell</button>
         </div>
@@ -29,43 +35,51 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 
 export default {
-  props: ["stock"],
+  props: ["stock","index"],
   data() {
     return {
-      ...mapState(["portfolio"]),
       quantity: 0
     };
   },
   methods: {
-    ...mapActions(["alterFunds"]),
-    buyStock() {
-      this.alterFunds(-this.stock.price * this.quantity);
+    ...mapActions(["alterFunds","alterStocks"]),
+    sellStock() {
+      this.alterFunds(this.stock.price * this.quantity);
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,
         quantity: this.quantity
       };
+      let pLoad = {
+        id: this.index,
+        quantity: this.quantity,
+        buying: false
+      }
 
-      console.log(order);
+      this.alterStocks(pLoad);
+      console.log(this.$store.state.portfolio.stocks);
       this.quantity = 0;
     }
   },
   computed: {
     ...mapGetters(["funds"]),
     canSell() {
-      if (this.quantity <= 0 || this.totalCost > this.funds) {
-        return false;
-      } else {
+      //if We can sell return true
+      if(this.myStock.quantity >= this.quantity && this.quantity > 0){
         return true;
+      }else{
+        return false;
       }
     },
     totalCost() {
       return this.quantity * this.stock.price;
+    },
+    myStock() {
+      return this.$store.getters.filteredStocks[this.index];
     }
   }
 };
