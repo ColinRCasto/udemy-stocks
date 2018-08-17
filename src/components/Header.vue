@@ -21,7 +21,7 @@
           data-toggle="dropdown" 
           role="button" 
           aria-haspopup="true" 
-          aria-expanded="false">Save & Load <sspan class="caret"></span></a>
+          aria-expanded="false">Save & Load <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Save</a></li>
             <li><a href="#">Load</a></li>
