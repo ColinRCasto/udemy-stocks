@@ -34,7 +34,7 @@
       <li><a href="https://getbootstrap.com/">Bootstrap</a>(For CSS styling)</li>
      </ul>
      <hr>
-     <p>The source code can be found <a href="https://github.com/ColinRCasto/udemy-stocks">on my github</a> <br>
+     <p>The source code can be found <a href="">on my github</a> <br>
      and the code is hosted and deployed via <a href="https://www.netlify.com/">Netlify</a> </p>
 </div>
 </template>
