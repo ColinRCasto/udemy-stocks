@@ -9,6 +9,10 @@ import { routes } from "./routes";
 
 Vue.use(VueRouter);
 
+Vue.filter("currency", value => {
+  return "$" + value.toLocaleString();
+});
+
 axios.defaults.baseURL = "https://udemy-stocks.firebaseio.com";
 
 const router = new VueRouter({

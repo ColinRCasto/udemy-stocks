@@ -5,7 +5,7 @@
         <h3 class="panel-title">
           {{myStock.name}}
           <small>
-          ${{myStock.price}} - 
+          {{myStock.price | currency}} - 
             <small>
               {{myStock.shift>0 ? 'UP' : 'DOWN'}}: {{myStock.shift}}
             </small>

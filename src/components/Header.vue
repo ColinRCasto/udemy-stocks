@@ -10,21 +10,23 @@
       <ul class="nav navbar-nav">
         <router-link to="/portfolio" activeClass="active" tag="li"><a>Portfolio</a></router-link>
         <router-link to="/stocks" activeClass="active" tag="li"><a>Stocks</a></router-link>
-        <li><a>Current Funds: ${{funds}}</a></li>
+        <li><a>Current Funds: {{funds | currency}}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a>End</a></li>
-        <li class="dropdown">
+        <li><a @click="fluctuateMarket" style="cursor : pointer">End Day</a></li>
+        <li class="dropdown" :class="{open: dropdown_open}"  @click="dropdown_open = !dropdown_open">
           <a 
           href="#" 
           class="dropdown-toggle" 
           data-toggle="dropdown" 
           role="button" 
           aria-haspopup="true" 
-          aria-expanded="false">Save & Load <span class="caret"></span></a>
+          aria-expanded="false"
+         
+          >Save & Load <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save</a></li>
-            <li><a href="#">Load</a></li>
+            <li><a href="#" @click="save_stocks">Save</a></li>
+            <li><a href="#" @click="load_stocks">Load</a></li>
           </ul>
         </li>
       </ul>
@@ -37,8 +39,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+import {mapActions} from 'vuex';
+import axios from 'axios';
 
 export default {
+
+  data(){
+    return{
+      dropdown_open: false
+    }
+  },
   computed: {
     ...mapGetters(["funds"]),
     f_string:{
@@ -51,6 +61,25 @@ export default {
 
     }
   },
+  methods: {
+  ...mapActions([
+    'fluctuateMarket'
+  ]),
+    save_stocks(){
+    axios.put('/stocks.json',this.$store.state.portfolio)
+    .then(res=>console.log(res))
+    .catch(err=>{console.log(err)});
+    },
+    load_stocks(){
+    axios.get('/stocks.json')
+    .then(res=>{
+      this.$store.state.portfolio = res.data;
+      console.log(res);
+      })
+    .catch(err=>{console.log(err)});
+    }
+  }
+
 };
 </script>
 

@@ -24,13 +24,73 @@ export const store = new Vuex.Store({
         {
           name: "Apple",
           quantity: 0,
-          price: 350,
+          price: 124,
           shift: 0
         },
         {
           name: "Twitter",
           quantity: 0,
-          price: 8,
+          price: 23,
+          shift: 0
+        },
+        {
+          name: "Oracle",
+          quantity: 0,
+          price: 87,
+          shift: 0
+        },
+        {
+          name: "FNDRZ",
+          quantity: 0,
+          price: 64,
+          shift: 0
+        },
+        {
+          name: "Ford",
+          quantity: 0,
+          price: 204,
+          shift: 0
+        },
+        {
+          name: "Samsung",
+          quantity: 0,
+          price: 72,
+          shift: 0
+        },
+        {
+          name: "Starbucks",
+          quantity: 0,
+          price: 110,
+          shift: 0
+        },
+        {
+          name: "Amazon",
+          quantity: 0,
+          price: 110,
+          shift: 0
+        },
+        {
+          name: "Facebook",
+          quantity: 0,
+          price: 278,
+          shift: 0
+        },
+        {
+          name: "Microsoft",
+          quantity: 0,
+          price: 147,
+          shift: 0
+        },
+        {
+          name: "Instagram",
+          quantity: 0,
+          price: 32,
+          shift: 0
+        },
+        {
+          name: "Snapchat",
+          quantity: 0,
+          price: 46,
           shift: 0
         }
       ]
